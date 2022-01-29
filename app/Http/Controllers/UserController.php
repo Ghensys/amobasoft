@@ -16,10 +16,8 @@ class UserController extends Controller
     {
         $users = User::all();
 
-        foreach (User::all() as $user) {
-            var_dump($user->first_name);
-        }
-        //return $users->email();
+        
+        return $users;
     }
 
     /**
@@ -59,11 +57,11 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return $user;
     }
 
     /**

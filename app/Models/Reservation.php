@@ -12,4 +12,8 @@ class Reservation extends Model
     public function route() {
         return $this->belongsTo('App\Models\Route');
     }
+
+    public function userPlan() {
+        return $this->belongsTo('App\Models\UserPlan');
+    }
 }

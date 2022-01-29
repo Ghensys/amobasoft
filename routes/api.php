@@ -21,11 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-Route::get('/1', function () {
-    var_dump('hpña');
-});
-
+//Test
 Route::get('/users', [UserController::class, 'data']);
 Route::get('/routes', [RouteController::class, 'index']);
 Route::get('/reservations', [ReservationController::class, 'index']);
+
+Route::get('/reservationsbyuser/{id}', [ReservationController::class, 'checkReservationsByUser']);
