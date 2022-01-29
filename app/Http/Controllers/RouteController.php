@@ -10,12 +10,13 @@ class RouteController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $id
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function checkCapacityById($id)
     {
-        $routes = Route::all();
+        $route = Route::find($id);
 
-        return $routes;
+        return $route->routeData;
     }
 }

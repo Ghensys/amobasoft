@@ -38,20 +38,24 @@ class ReservationController extends Controller
     }
 
     /**
-     * Find reservations by user
+     * Buscar reservaciones de un usuario por el Id del usuario
      * 
      * @param  \Illuminate\Http\Request  $id
      * @return \Illuminate\Http\Response
      */
     public function checkReservationsByUser($id)
     {
+        //Busqueda del usuario
         $user = $this->user->show($id);
 
+        // Inicio de arreglo de datos para la respuesta del servicio
+        // Información del usuario
         $data['user_id'] = $user->id;
         $data['first_name'] = $user->first_name;
         $data['last_name'] = $user->last_name;
         $data['phone_number'] = $user->phone_number;
 
+        //Planes de usuario asociados al usuario
         foreach ($user->userPlans as $key_user_plan => $value_user_plan) {
             $data['user_plan'][$key_user_plan] = [
                 'id' => $value_user_plan->id,
@@ -62,6 +66,7 @@ class ReservationController extends Controller
                 'modified' => $value_user_plan->modified
             ];
 
+            //Reservaciones por cada plan de usuario
             foreach ($value_user_plan->reservations as $key_reservation => $value_reservation) {
                 $data['user_plan'][$key_user_plan]['reservations'][$key_reservation] = [
                     'id' => $value_reservation->id,
@@ -79,7 +84,5 @@ class ReservationController extends Controller
         }
 
         return $data;
-
-        return $user->userPlans;
     }
 }

@@ -23,7 +23,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Test
 Route::get('/users', [UserController::class, 'data']);
-Route::get('/routes', [RouteController::class, 'index']);
+//Route::get('/routes', [RouteController::class, 'index']);
 Route::get('/reservations', [ReservationController::class, 'index']);
 
-Route::get('/reservationsbyuser/{id}', [ReservationController::class, 'checkReservationsByUser']);
+// Buscar reservaciones de un usuario por el Id del usuario
+Route::get('/reservationsbyuser/{user_id}', [ReservationController::class, 'checkReservationsByUser']);
+
+// Capacidad de ruta
+Route::get('/routecapacity/{route_id}', [RouteController::class, 'checkCapacityById']);
