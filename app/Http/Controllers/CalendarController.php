@@ -8,12 +8,12 @@ use App\Models\Calendar;
 class CalendarController extends Controller
 {
     /**
-     * Días del calendario no disponible
+     * Días del calendario no disponible por id del calendario
      * 
      * @param  \Illuminate\Http\Request  $calendar_id
      * @return \Illuminate\Http\Response
      */
-    public function showCalendarDisabledDays($calendar_id) {
+    public function showCalendarDisabledDaysByCalendarId($calendar_id) {
 
         $calendar = Calendar::find($calendar_id);
 
@@ -24,48 +24,22 @@ class CalendarController extends Controller
     }
 
     /**
+     * Días del calendario no disponible por id del calendario
      * 
-     * @param  \Illuminate\Http\Request  $calendar_id
+     * @param  \Illuminate\Http\Request  $array
      * @return \Illuminate\Http\Response
      */
-    public function show($calendar_id) {
-        return $calendar_id;
+    public function showCalendarDisabledDaysByManyCalendarIds($array) {
 
-        var_dump($calendar_id);die;
+        $calendar_ids = unserialize($array);
 
-        $array = serialize([0 => 1, 1 => 2]);
-        $url = "http://127.0.0.1:8000/api/calendardisableddays/".$array;
+        foreach ($calendar_ids as $key => $value) {
+            $calendar = Calendar::find($value);
+            $data['calendar'][$key] = $calendar;
+            $data['calendar'][$key]['disabled_days'] = $calendar->disabledDays;
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        $data = curl_exec($ch);
-        curl_close($ch);
-        
-        var_dump(serialize([0 => 1, 1 => 2]));die;
-
-        $calendar = Calendar::find($calendar_id);
-
-        $data['calendar'] = $calendar;
-        $data['disabled_days'] = $calendar->disabledDays;
+        }
 
         return $data;
-
-        $array = serialize([0 => 1, 1 => 2]);
-        $url = "http://127.0.0.1:8000/api/calendardisableddays/".$array;
-
-        return $url;
-
-        // $ch = curl_init();
-        // curl_setopt($ch, CURLOPT_URL, $url);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // curl_setopt($ch, CURLOPT_HEADER, 0);
-        // $data = curl_exec($ch);
-        // curl_close($ch);
-
-        // var_dump($data);die;
-
-        // var_dump(serialize([0 => 1, 1 => 2]));die;
     }
 }
