@@ -9,8 +9,7 @@ class Route extends Model
 {
     use HasFactory;
 
-    public function routeData()
-    {
+    public function routeData() {
         return $this->hasMany('App\Models\RoutesData');
     }
 }
