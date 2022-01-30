@@ -9,32 +9,21 @@ use App\Http\Controllers\UserController;
 class ReservationController extends Controller
 {
 
-    public function __construct()
-    {
+    public function __construct() {
         $user = new UserController();
         $this->user = $user;
     }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $reservations = Reservation::all();
-
-
         $data = $this->user->index();
 
-       //s var_dump($data);die;
-
-
         return $data;
-
-        //test
-        foreach (Reservation::all() as $reservations) {
-            print_r(json_encode($reservations->route));
-        }
     }
 
     /**
@@ -43,14 +32,13 @@ class ReservationController extends Controller
      * @param  \Illuminate\Http\Request  $id
      * @return \Illuminate\Http\Response
      */
-    public function checkReservationsByUser($id)
-    {
+    public function checkReservationsByUser($id) {
         //Busqueda del usuario
         $user = $this->user->show($id);
 
         // Inicio de arreglo de datos para la respuesta del servicio
         // Información del usuario
-        $data['user_id'] = $user->id;
+        $data['user'] = $user->id;
         $data['first_name'] = $user->first_name;
         $data['last_name'] = $user->last_name;
         $data['phone_number'] = $user->phone_number;
@@ -70,10 +58,9 @@ class ReservationController extends Controller
             foreach ($value_user_plan->reservations as $key_reservation => $value_reservation) {
                 $data['user_plan'][$key_user_plan]['reservations'][$key_reservation] = [
                     'id' => $value_reservation->id,
-                    'route_id' => $value_reservation->route_id,
-                    'route_title' => $value_reservation->route->title,
                     'reservation_start' => $value_reservation->reservation_start,
                     'reservation_end' => $value_reservation->reservation_end,
+                    'route_info' => $value_reservation->route,
                     'route_stop_origin_id' => $value_reservation->route_stop_origin_id,
                     'route_stop_destination_id' => $value_reservation->route_stop_destination_id,
                     'created_at' => $value_reservation->created_at,
