@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\CalendarController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +32,10 @@ Route::get('/reservationsbyuser/{user_id}', [ReservationController::class, 'chec
 
 // Capacidad de ruta
 Route::get('/routecapacity/{route_id}', [RouteController::class, 'checkCapacityById']);
+
+// Días del calendario no disponible
+Route::get('/calendardisableddays/{calendar_id}', [CalendarController::class, 'showCalendarDisabledDays']);
+
+//test array
+Route::get('/testarray', [CalendarController::class, 'show']);
+// Route::get('/calendardisableddays1/{array}', [CalendarController::class, 'show']);
