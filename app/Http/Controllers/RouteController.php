@@ -7,8 +7,9 @@ use App\Models\Route;
 
 class RouteController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
+     * Buscar capacidad de ruta por id de la ruta
      *
      * @param  \Illuminate\Http\Request  $id
      * @return \Illuminate\Http\Response
@@ -26,6 +27,7 @@ class RouteController extends Controller
             $data['title'] = $route->title;
             $data['start_timestamp'] = $route->start_timestamp;
             $data['end_timestamp'] = $route->end_timestamp;
+
             if (!isset($route->routeData)) {
                 $data['route_data'] = 'No route data found';
             }
@@ -38,7 +40,7 @@ class RouteController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Buscar capacidad de una o mas rutas por el id
      *
      * @param  \Illuminate\Http\Request  $array
      * @return \Illuminate\Http\Response
@@ -71,7 +73,7 @@ class RouteController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Metodo de prueba serializacion
      *
      * @return \Illuminate\Http\Response
      */
@@ -81,19 +83,18 @@ class RouteController extends Controller
         //$array = serialize([0 => 2]);
         $url = "http://127.0.0.1:8000/api/arrayserealizado/".$array;
 
-
         return $url;
     }
 
     /**
-     * Recibiendo arreglo con serialize
+     * Metodo de prueba receptor de serializacion
      *
      * @param  \Illuminate\Http\Request  $array
      * @return \Illuminate\Http\Response
      */
     public function prueba($array) {
 
-        var_dump(unserialize($array));die;
+        var_dump(unserialize($array));
         return $array;
     }
 }

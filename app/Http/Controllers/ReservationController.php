@@ -15,27 +15,16 @@ class ReservationController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index() {
-        $reservations = Reservation::all();
-        $data = $this->user->index();
-
-        return $data;
-    }
-
-    /**
      * Buscar reservaciones de un usuario por el Id del usuario
      * 
      * @param  \Illuminate\Http\Request  $id
      * @return \Illuminate\Http\Response
      */
     public function checkReservationsByUser($id) {
-        //Busqueda del usuario
+        // Busqueda del usuario
         $user = $this->user->show($id);
 
+        // Validacion de existencia de usuario
         if (!$user) {
             $data['message'] = 'User not found.';
         }
@@ -80,7 +69,6 @@ class ReservationController extends Controller
                 
             }
         }
-        
 
         return $data;
     }

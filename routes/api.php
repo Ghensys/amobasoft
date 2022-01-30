@@ -29,7 +29,7 @@ Route::get('/reservationsbyuser/{user_id}', [ReservationController::class, 'chec
 // Capacidad de ruta
 Route::get('/routecapacity/{route_id}', [RouteController::class, 'checkCapacityById']); //verificada
 
-// Capacidad de multiples rutas - http://127.0.0.1:8000/api/manyroutescapacity/a:2:%7Bi:0;i:1;i:1;i:2;%7D
+// Capacidad de multiples rutas - http://127.0.0.1:8000/api/manyroutescapacity/a:2:%7Bi:0;i:1;i:1;i:2;%7D   56 para probar 2 distintos calendarios
 Route::get('/manyroutescapacity/{array}', [RouteController::class, 'checkCapacityManyByIds']); //verificada
 
 // Días de un calendario no disponible

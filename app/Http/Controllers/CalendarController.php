@@ -7,6 +7,7 @@ use App\Models\Calendar;
 
 class CalendarController extends Controller
 {
+
     /**
      * Días del calendario no disponible por id del calendario
      * 
@@ -34,7 +35,7 @@ class CalendarController extends Controller
     }
 
     /**
-     * Días del calendario no disponible por id del calendario
+     * Días de calendario no disponible por varios id del calendario
      * 
      * @param  \Illuminate\Http\Request  $array
      * @return \Illuminate\Http\Response
