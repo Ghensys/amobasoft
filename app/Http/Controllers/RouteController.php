@@ -16,14 +16,59 @@ class RouteController extends Controller
     public function checkCapacityById($id) {
 
         $route = Route::find($id);
-        $data['id'] = $route->id;
-        $data['invitation_code'] = $route->invitation_code;
-        $data['title'] = $route->title;
-        $data['start_timestamp'] = $route->start_timestamp;
-        $data['end_timestamp'] = $route->end_timestamp;
-        $data['route_data'] = $route->routeData;
 
-        return $route;
+        if (!$route) {
+            $data['message'] = 'Route not found';
+        }
+        else {
+            $data['id'] = $route->id;
+            $data['invitation_code'] = $route->invitation_code;
+            $data['title'] = $route->title;
+            $data['start_timestamp'] = $route->start_timestamp;
+            $data['end_timestamp'] = $route->end_timestamp;
+            if (!isset($route->routeData)) {
+                $data['route_data'] = 'No route data found';
+            }
+            else {
+                $data['route_data'] = $route->routeData;
+            }
+        }
+        
+
+        return $data;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $array
+     * @return \Illuminate\Http\Response
+     */
+    public function checkCapacityManyByIds($array) {
+
+        $routes_id = unserialize($array);
+
+        foreach ($routes_id as $key => $value) {
+            $route = Route::find($value);
+
+            if (!$route) {
+                $data['route'][$key] = [
+                    'message' => "Route with id #".$value." wasn't found."
+                ];
+            }
+            else {
+                $data['route'][$key] = $route;
+
+                if (!isset($route->routeData)) {
+                    $data['route'][$key]['route_data'] = 'No route data found.';
+                }
+                else {
+                    $data['route'][$key]['route_data'] = $route->routeData;
+                }
+            }
+        }
+
+        return $data;
     }
 
     /**
@@ -33,8 +78,9 @@ class RouteController extends Controller
      */
     public function testArray() {
 
-        $array = serialize([0 => 2, 1 => 3]);
-        $url = "http://127.0.0.1:8000/api/passarray/".$array;
+        $array = serialize([1, 2]);
+        //$array = serialize([0 => 2]);
+        $url = "http://127.0.0.1:8000/api/arrayserealizado/".$array;
 
 
         return $url;
