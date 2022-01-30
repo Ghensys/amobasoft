@@ -13,8 +13,7 @@ class UserPlan extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function reservations()
-    {
+    public function reservations() {
         return $this->hasMany('App\Models\Reservation');
     }
 }
