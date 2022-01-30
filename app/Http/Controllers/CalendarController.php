@@ -17,8 +17,18 @@ class CalendarController extends Controller
 
         $calendar = Calendar::find($calendar_id);
 
-        $data['calendar'] = $calendar;
-        $data['disabled_days'] = $calendar->disabledDays;
+        if (!$calendar) {
+            $data['calendar'] = 'Calendar not found.';
+        }
+        else {
+            $data['calendar'] = $calendar;
+            if (!isset($calendar->disabledDays)) {
+                $data['calendar']['disabled_days'] = 'Disabled days not found.';
+            }
+            else {
+                $data['calendar']['disabled_days'] = $calendar->disabledDays;
+            }
+        }
 
         return $data;
     }
@@ -31,13 +41,23 @@ class CalendarController extends Controller
      */
     public function showCalendarDisabledDaysByManyCalendarIds($array) {
 
-        $calendar_ids = unserialize($array);
+        $calendars_id = unserialize($array);
 
-        foreach ($calendar_ids as $key => $value) {
+        foreach ($calendars_id as $key => $value) {
             $calendar = Calendar::find($value);
-            $data['calendar'][$key] = $calendar;
-            $data['calendar'][$key]['disabled_days'] = $calendar->disabledDays;
 
+            if (!$calendar) {
+                $data['calendar'][$key] = 'Calendar not found.';
+            }
+            else {
+                $data['calendar'][$key] = $calendar;
+                if (!isset($calendar->disabledDays)) {
+                    $data['calendar'][$key]['disabled_days'] = 'Disabled days not found.';
+                }
+                else {
+                    $data['calendar'][$key]['disabled_days'] = $calendar->disabledDays;
+                }
+            }
         }
 
         return $data;

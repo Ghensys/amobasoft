@@ -33,7 +33,6 @@ class RouteController extends Controller
                 $data['route_data'] = $route->routeData;
             }
         }
-        
 
         return $data;
     }
@@ -93,7 +92,6 @@ class RouteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function prueba($array) {
-
 
         var_dump(unserialize($array));die;
         return $array;
